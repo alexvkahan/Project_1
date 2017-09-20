@@ -1,16 +1,21 @@
 import os
+import csv
 
 def getData(file):
 #Input: file name
 #Ouput: return a list of dictionary objects where 
-#the keys will come from the first row in the data.
-
+#the keys will come from the first row in the data.	
 #Note: The column headings will not change from the 
 #test cases below, but the the data itself will 
 #change (contents and size) in the different test 
 #cases.
-
 	#Your code here:
+	csv_file=open(file)
+	reader=csv.DictReader(csv_file)
+	dict_lst=[]
+	for item in reader:
+		dict_lst.append(item)
+	return dict_lst
 	pass
 
 #Sort based on key/column
@@ -19,6 +24,10 @@ def mySort(data,col):
 #Output: Return a string of the form firstName lastName
 
 	#Your code here:
+	name_str=''
+	sorted_data=sorted(data, key=lambda x:x[col])
+	name_str=name_str+sorted_data[0]['First']+' '+sorted_data[0]['Last']
+	return (name_str)
 	pass
 
 #Create a histogram
@@ -29,6 +38,26 @@ def classSizes(data):
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
 	#Your code here:
+	frsh=0
+	soph=0
+	jr=0
+	sr=0
+	for person in data:
+		if person['Class']=='Freshman':
+			frsh+=1
+		elif person['Class']=='Sophomore':
+			soph+=1
+		elif person['Class']=='Junior':
+			jr+=1
+		else:
+			sr+=1
+	frsh=('Freshman', frsh)
+	soph=('Sophomore', soph)
+	jr=('Junior', jr)
+	sr=('Senior', sr)
+	class_lst=[frsh, soph, jr, sr]
+	sorted_class_lst=sorted(class_lst, key=lambda x:x[1], reverse=True)
+	return (sorted_class_lst)
 	pass
 
 
