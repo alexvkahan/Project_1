@@ -1,5 +1,6 @@
 import os
 import csv
+import filecmp
 
 def getData(file):
 #Input: file name
@@ -13,8 +14,9 @@ def getData(file):
 	csv_file=open(file)
 	reader=csv.DictReader(csv_file)
 	dict_lst=[]
-	for item in reader:
-		dict_lst.append(item)
+	for person in reader:
+		dict_lst.append(person)
+	print (len(dict_lst))
 	return dict_lst
 	pass
 
@@ -36,7 +38,6 @@ def classSizes(data):
 # Output: Return a list of tuples ordered by
 # ClassName and Class size, e.g 
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
-
 	#Your code here:
 	frsh=0
 	soph=0
@@ -59,15 +60,11 @@ def classSizes(data):
 	sorted_class_lst=sorted(class_lst, key=lambda x:x[1], reverse=True)
 	return (sorted_class_lst)
 	pass
-
-
-
 # Find the most common day of the year to be born
 def findDay(a):
 # Input: list of dictionaries
 # Output: Return the day of month (1-31) that is the
 # most often seen in the DOB
-
 	#Your code here:
 	common_bday={}
 	for person in a:
@@ -81,17 +78,13 @@ def findDay(a):
 	most_common_bday=int(sorted_bday[0][0])
 	return (most_common_bday)
 	pass
-
-
 # Find the average age (rounded) of the Students
 def findAge(a):
 # Input: list of dictionaries
 # Output: Return the day of month (1-31) that is the
 # most often seen in the DOB
-
 	#Your code here:
 	pass
-
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
 def mySortPrint(a,col,fileName):
@@ -99,6 +92,15 @@ def mySortPrint(a,col,fileName):
 #Output: None
 
 	#Your code here:
+	name_str=''
+	sorted_data=sorted(a, key=lambda x:x[col])
+	results=open(fileName, 'w')
+	dict_keys=sorted_data[0].keys()
+	csv_writer=csv.DictWriter(results, dict_keys)
+	csv_writer.writeheader()
+	for person in sorted_data:
+		csv_writer.writerow(person)
+	results.close()
 	pass
 
 
