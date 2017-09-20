@@ -69,6 +69,17 @@ def findDay(a):
 # most often seen in the DOB
 
 	#Your code here:
+	common_bday={}
+	for person in a:
+		dob_lst=person['DOB'].split('/')
+		if dob_lst[1] not in common_bday:
+			common_bday[dob_lst[1]]=1
+		else:
+			common_bday[dob_lst[1]]+=1
+	bday_lst=common_bday.items()
+	sorted_bday=sorted(bday_lst, key=lambda x:-x[1])
+	most_common_bday=int(sorted_bday[0][0])
+	return (most_common_bday)
 	pass
 
 
